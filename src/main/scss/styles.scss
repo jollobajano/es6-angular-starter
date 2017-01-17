@@ -1,0 +1,11 @@
+
+$font-color: hsla(190, 75%, 35%, 0.75);
+
+body {
+    font-family: "Myriad Pro", Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: "Myriad Pro", Arial, sans-serif;
+    color: $font-color;
+}
