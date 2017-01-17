@@ -6,6 +6,8 @@ var ngAnnotate = require('gulp-ng-annotate');
 var wiredep = require('wiredep').stream;
 var cdnizer = require("gulp-cdnizer");
 
+var sass = require('gulp-sass');
+
 var browserSync = require('browser-sync').create();
 var proxy = require('proxy-middleware');
 var modRewrite = require('connect-modrewrite');
@@ -16,7 +18,7 @@ var runSequence = require('run-sequence');
 
 
 gulp.task('default', function() {
-    runSequence(['transpile', 'webapp-resources'], 'watch', 'browserSync');
+    runSequence(['transpile', 'webapp-resources', 'sass'], 'watch', 'browserSync');
 });
 
 
@@ -24,7 +26,7 @@ gulp.task('default', function() {
 gulp.task('watch', function() {
     gulp.watch(['src/main/webapp/**/*'], ['webapp-resources']);
     gulp.watch(['src/main/js/**/*.js'], ['transpile']);
-    // gulp.watch('app/scss/**/*.scss', ['sass']);
+    gulp.watch('src/main/scss/**/*.scss', ['sass']);
     gulp.watch(path.join('target/generated-webresources', '**/*')).on('change', browserSync.reload);    
 });
 
@@ -47,7 +49,16 @@ gulp.task('transpile', function() {
 	    }
 	}))
         .pipe(ngAnnotate())
-	.pipe(gulp.dest('./target/generated-webresources'));
+	.pipe(gulp.dest('target/generated-webresources'));
+});
+
+
+
+gulp.task('sass', function () {
+    return gulp.src('src/main/scss/**/*.scss')
+        .pipe(wiredep())
+        .pipe(sass())
+	.pipe(gulp.dest('target/generated-webresources'));
 });
 
 

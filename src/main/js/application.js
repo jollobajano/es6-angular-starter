@@ -1,10 +1,9 @@
 // application.js
+import { MainService } from './main-service';
 import { MainController } from './main-controller';
+import { StatesProvider } from './state-provider';
 
-console.log('application.js');
-
-angular.module('application', []);
-
-
-angular.module('application')
-    .controller('MainController', MainController);
+angular.module('application', [])
+    .service('MainService', MainService)
+    .controller('MainController', MainController)
+    .provider('StatesProvider', StatesProvider);

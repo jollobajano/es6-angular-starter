@@ -1,15 +1,17 @@
 
-console.log('main-controller.js');
-
-class MainController {
+export class MainController {
 
     /* @ngInject */
-    constructor($scope) {
+    constructor($scope, $interval, MainService, StatesProvider) {
 	this.$scope = $scope;
-	$scope.carsten = 'Carsten jag älskar dig.';
+	$scope.carsten = MainService.greet();
+	$scope.statePrefix = StatesProvider.getPrefix();
+	$scope.state = StatesProvider.getNextState();
+
+	$interval(() => {
+	    $scope.state = StatesProvider.getNextState();
+	}, 1000, 10);	
     }
 
 
 }
-
-export { MainController }

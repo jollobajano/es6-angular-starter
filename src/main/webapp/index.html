@@ -2,11 +2,13 @@
 <html ng-app="application">
     <head>
 	<title>Carsten är bäst!</title>
+	<link rel="stylesheet" href="/styles.css" type='text/css' media='all' />
     </head>
     <body ng-controller="MainController as main">
 
-	<p>{{carsten}}</p>
+	<h1>{{carsten}}</h1>
 
+	{{statePrefix}} {{state}}
         <!-- bower:js -->
         <!-- endbower -->
         <script src="/preload.bundle.js"></script>
